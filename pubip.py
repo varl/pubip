@@ -43,7 +43,6 @@ class pubIpHandler(http.server.BaseHTTPRequestHandler):
         self.server.current_ip = n_address
       else:
         print('Update IP mismatch: {}, {}'.format(c_address, n_address))
-        return
 
     msg = self.server.current_ip
     self.wfile.write(msg.encode('utf-8'))
