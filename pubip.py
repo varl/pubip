@@ -12,16 +12,15 @@ class pubIpHandler(http.server.BaseHTTPRequestHandler):
     self.send_response(200)
     self.send_header('Content-type','text/html')
     self.end_headers()
-    # Send the html message
 
-    c_address, c_port = self.client_address
     s_address = self.server.current_ip
 
     path = self.path.split('/')
 
-    if path[1] == '':
-      msg = s_address
-    elif path[1] == 'update':
+    if path[1].startswith('favico'):
+      return
+
+    if path[1] == 'update':
       n_address = path[2]
 
       try:
@@ -33,6 +32,11 @@ class pubIpHandler(http.server.BaseHTTPRequestHandler):
       if n_address == s_address:
         print('IP was identical, skipping...')
         return
+
+      if 'X-Real-IP' in self.headers:
+        c_address = self.headers['X-Real-IP']
+      else:
+        c_address, c_port = self.client_address
       
       if n_address == c_address:
         print('Updating dynamic IP: {}'.format(n_address))
@@ -41,10 +45,7 @@ class pubIpHandler(http.server.BaseHTTPRequestHandler):
         print('Update IP mismatch: {}, {}'.format(c_address, n_address))
         return
 
-      msg = s_address
-    else:
-      msg = ''
-    
+    msg = self.server.current_ip
     self.wfile.write(msg.encode('utf-8'))
     return
 
