@@ -34,6 +34,4 @@ This redirects you to whatever IP that `:user` is set to along with `:port`.
 
 ## Limitations
 
-All state is in-memory. If service restarts, there will be a delay* before Tomato updates the IP.
-
-* Whatever amount you set auto-refresh to.
+All state is in-memory. If service restarts, there will be a delay (whatever you set auto-refresh to) before Tomato updates the IP.
