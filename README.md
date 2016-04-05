@@ -2,8 +2,28 @@ pubIp
 =====
 
 Simple dynamic DNS resolver which works with
-[Tomato](http://www.polarcloud.com/tomato) and requires [Python
+[Tomato](http://www.polarcloud.com/tomato) and requires only [Python
 3](http://python.org).
+
+## Just run it.
+
+```
+$ /usr/bin/python3 pubip.py
+```
+
+## Supervisor config example
+
+```
+$ cat /etc/supervisor/conf.d/pubip.conf
+
+[program:pubip]
+command=/path/to/python3 pubip.py
+directory=/YOUR_DIR/pubip
+user=NOT_ROOT_FOR_PETES_SAKE
+autostart=true
+autorestart=true
+redirect_stderr=true
+```
 
 ## Setup in Tomato
 
